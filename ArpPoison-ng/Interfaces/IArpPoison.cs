@@ -8,5 +8,6 @@ namespace ArpPoison_ng.Interfaces
     public interface IArpPoison
     {
         void Spoof(ILiveDevice device, string targetIp, string gatewayIp, string targetMac, string gatewayMac);
+        void Restore(ILiveDevice device, string targetIp, string gatewayIp, string targetMac, string gatewayMac);
     }
 }

@@ -111,6 +111,19 @@ namespace ArpPoison_ng.Commands
             {
                 _consoleUI.WriteLine("Spoofing cancelled.");
             }
+            finally
+            {
+                _consoleUI.WriteLine("Restoring ARP tables...");
+                try
+                {
+                    _arpPoison.Restore(device, settings.Target, gatewayIp.ToString(), targetMacStr, gatewayMacStr);
+                    _consoleUI.WriteLine("ARP tables restored.");
+                }
+                catch (Exception ex)
+                {
+                    _consoleUI.WriteLine($"Error restoring ARP: {ex.GetBaseException().Message}");
+                }
+            }
 
             _consoleUI.WriteLine("Exiting.");
             return 0;

@@ -47,5 +47,34 @@ namespace ArpPoison_ng.Services
             ethToGateway.PayloadPacket = arpToGateway;
             device.SendPacket(ethToGateway);
         }
+
+        public void Restore(ILiveDevice device, string targetIp, string gatewayIp, string targetMac, string gatewayMac)
+        {
+            var arpToTarget = _arpPacketBuilder.BuildArp(
+                    PhysicalAddress.Parse(gatewayMac),
+                    PhysicalAddress.Parse(targetMac),
+                    IPAddress.Parse(gatewayIp),
+                    IPAddress.Parse(targetIp),
+                    ArpOperation.Response);
+
+            var ethToTarget = _arpPacketBuilder.BuildEthernet(
+                    PhysicalAddress.Parse(gatewayMac),
+                    PhysicalAddress.Parse(targetMac));
+            ethToTarget.PayloadPacket = arpToTarget;
+            device.SendPacket(ethToTarget);
+
+            var arpToGateway = _arpPacketBuilder.BuildArp(
+                    PhysicalAddress.Parse(targetMac),
+                    PhysicalAddress.Parse(gatewayMac),
+                    IPAddress.Parse(targetIp),
+                    IPAddress.Parse(gatewayIp),
+                    ArpOperation.Response);
+
+            var ethToGateway = _arpPacketBuilder.BuildEthernet(
+                PhysicalAddress.Parse(targetMac),
+                PhysicalAddress.Parse(gatewayMac));
+            ethToGateway.PayloadPacket = arpToGateway;
+            device.SendPacket(ethToGateway);
+        }
     }
 }

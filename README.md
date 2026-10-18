@@ -48,7 +48,7 @@ dotnet run --project ArpPoison-ng -i "eth0" -t "192.168.1.50"
 
 | Flag | Nome | Descrição |
 |------|------|-----------|
-| `-i`, `--interface` | Interface de rede | Nome amigável da interface (ex: `eth0`, `Wi-Fi`) |
+| `-i`, `--interface` | Interface de rede | Nome amigável da interface (ex: `eth0`, `Wi-Fi`, `Ethernet`) |
 | `-t`, `--target` | IP alvo | IP da vítima na mesma rede local |
 
 ---
